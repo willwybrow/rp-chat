@@ -31,7 +31,7 @@ def authorize():
         # re-prompting the user for permission. Recommended for web server apps.
         access_type='offline',
         # Enable incremental authorization. Recommended as a best practice.
-        include_granted_scopes='true')
+        include_granted_scopes='true', prompt='consent')
 
     # Store the state so the callback can verify the auth server response.
     session['state'] = state
@@ -109,14 +109,18 @@ def test_api_request():
 
     credentials = google.oauth2.credentials.Credentials(**session['credentials'])  # .refresh(google.auth.transport.requests.Request())
 
+    credentials.refresh(google.auth.transport.requests.Request())
+
     service = googleapiclient.discovery.build("identitytoolkit", "v3", credentials=credentials)
+
+    # things = dir(service.relyingparty().getAccountInfo(body={'idToken': credentials.id_token}).execute())
 
     # Save credentials back to session in case access token was refreshed.
     # ACTION ITEM: In a production app, you likely want to save these
     #              credentials in a persistent database instead.
     session['credentials'] = credentials_to_dict(credentials)
 
-    return jsonify(**session['id_token'])
+    return jsonify(id_token=session['id_token'], new_id_token=google.oauth2.id_token.verify_oauth2_token(credentials.id_token, google.auth.transport.requests.Request(), credentials.client_id))
 
 
 def credentials_to_dict(credentials):
