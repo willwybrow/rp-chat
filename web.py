@@ -3,8 +3,13 @@ import os
 
 from flask import Flask
 from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 from redis import Redis
+
+from nav import configure_nav
 
 import codecs
 import json
@@ -21,9 +26,20 @@ with codecs.open(config_filename, "r", "utf-8") as config_file:
 redis = Redis(config['redis']['host'])
 app.config.update(SESSION_REDIS=redis)
 
+Bootstrap(app)
+
+db = SQLAlchemy(app)
 Session(app)
 
-from views.test_views import *
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+configure_nav(app)
+
+# db.create_all()
+
+from views.auth import *
+from views.frontend import *
 
 if __name__ == "__main__":
     import ssl
