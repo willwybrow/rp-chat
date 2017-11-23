@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% block title %}Campaigns{% endblock %}
+
+{% block innercontent %}
+    <h1>{{ campaign.name }}</h1>
+    <div class="jumbotron">{{ campaign.description }}</div>
+    <h2>Characters</h2>
+
+{% endblock %}

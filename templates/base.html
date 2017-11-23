@@ -1,5 +1,11 @@
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block navbar %}
 {{nav.login_aware_navbar.render()}}
+{% endblock %}
+{% block content %}
+<main role="main" class="container">
+    {% block innercontent %}{% endblock %}
+</main>
 {% endblock %}

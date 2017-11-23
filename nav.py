@@ -13,8 +13,9 @@ def login_aware_navbar():
     print(current_user)
     if current_user.is_authenticated:
         basic_navbar.extend([
-            View('Campaigns', 'my_campaigns'),
-            View('Characters', 'my_characters'),
+            View('Campaigns', 'campaigns'),
+            View('Characters', 'characters'),
+            Subgroup('DM', View('Campaigns', 'dm_campaigns'), View('NPCs', 'dm_characters')),
             View('Logout', 'logout')])
     else:
         basic_navbar.extend([View('Login', 'login')])

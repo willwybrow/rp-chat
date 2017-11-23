@@ -17,7 +17,7 @@ import json
 
 app = Flask(__name__)
 
-config_filename = os.getenv("FLASK_CONFIGFILE", "config.live.json")
+config_filename = os.getenv("FLASK_CONFIGFILE", "../rp-chaat_files/config.live.json")
 
 with codecs.open(config_filename, "r", "utf-8") as config_file:
     config = json.loads(config_file.read())

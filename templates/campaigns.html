@@ -1,13 +1,38 @@
 {% extends "base.html" %}
 {% from "bootstrap/pagination.html" import render_pagination %}
 
-{% block title %}My Campaigns{% endblock %}
+{% block title %}Campaigns{% endblock %}
 
-{% block content %}
-<form method="POST">
-    {{ new_form.hidden_tag() }}
-    {{ new_form.name.label }} {{ new_form.name(size=20) }}
-    {{ new_form.description.label }} {{ new_form.description() }}
-</form>
-{{render_pagination(campaigns)}}
+{% block innercontent %}
+    <h1>My Campaigns</h1>
+    {% if new_form %}
+    <h2>Add new</h2>
+    <form method="POST">
+        {{ wtf.quick_form(new_form) }}
+    </form>
+    {% endif %}
+    <h2>Campaigns</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Campaign</th>
+          <th scope="col">Characters</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for campaign in campaigns.items %}
+        <tr>
+          <th scope="row"><a href="{{ url_for('campaign', campaign_id=campaign.id) }}">{{ campaign.name }}</a></th>
+          <td>
+              <ul>
+                  {% for character in campaign.characters %}
+                  <li>{{ character.name }}</li>
+                  {% endfor %}
+              </ul>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {{ render_pagination(campaigns) }}
 {% endblock %}

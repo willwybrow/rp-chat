@@ -9,9 +9,9 @@ def which_user_just_logged_in(credential_json, id_token_json):
     oauth_credential = find_user_from_google_sub(id_token_json['sub'])
     if oauth_credential is None or oauth_credential.user is None:
         # new user
-        reservation = Reservation.query.filter_by(email=id_token_json['email'])
+        reservation = Reservation.query.filter_by(email=id_token_json['email']).first()
         if 'email' in id_token_json and id_token_json['email'] and reservation:
-            return create_user_from_credential(credential_json, id_token_json, new_user=User.query.filter_by(id=reservation.user_id))
+            return create_user_from_credential(credential_json, id_token_json, new_user=User.query.filter_by(id=reservation.user_id).first())
         return create_user_from_credential(credential_json, id_token_json)
     else:
         refresh_credential(id_token_json['sub'], credential_json, id_token_json=id_token_json)
