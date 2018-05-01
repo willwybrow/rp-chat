@@ -2,6 +2,8 @@ import json
 
 from web import app, config, login_manager
 
+import persistence.service
+
 from flask import url_for, redirect, session, jsonify, request
 
 from flask_login import login_required, login_user, current_user, logout_user
