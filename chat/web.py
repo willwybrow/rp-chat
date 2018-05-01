@@ -38,6 +38,7 @@ configure_nav(app)
 
 # db.create_all()
 
+from views.auth import *
 from views.frontend import *
 
 if __name__ == "__main__":
