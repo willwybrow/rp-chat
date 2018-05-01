@@ -10,7 +10,6 @@ def navbar():
 def login_aware_navbar():
     basic_navbar = list(navbar().items)
 
-    print(current_user)
     if current_user.is_authenticated:
         basic_navbar.extend([
             View('Campaigns', 'campaigns'),
