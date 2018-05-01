@@ -106,3 +106,4 @@ ENV/
 # secret files
 _secrets/
 _data/
+config.live.json
