@@ -38,7 +38,7 @@ configure_nav(app)
 
 # db.create_all()
 
-from chat.views.frontend import *
+from views.frontend import *
 
 if __name__ == "__main__":
     import ssl

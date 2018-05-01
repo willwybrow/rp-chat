@@ -1,6 +1,6 @@
 import uuid
 
-from chat.web import db
+from web import db
 
 
 def new_uuid():
