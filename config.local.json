@@ -16,6 +16,7 @@
     "SITE_NAME": "Chorinn RP",
     "SESSION_TYPE": "redis",
     "SECRET_KEY": "f6451ab2-7d71-46bc-9eea-9019d9a7f56f-991c778b-2635-4fca-a924-1da22ed8d270-34f91f1d-8d83-43b6-b78b-837e7a915b74-b08f1fb9-a775-4894-818b-096829157b14-a8c37c48-6005-4622-a212-f0782e70c790-1b5d8457-2f6a-4b65-ac0a-b26806e7b01",
-    "SQLALCHEMY_DATABASE_URI": "sqlite:///_data/local.db"
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///../_data/local.db",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false
   }
 }

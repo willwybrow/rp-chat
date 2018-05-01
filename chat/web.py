@@ -17,7 +17,7 @@ import json
 
 app = Flask(__name__)
 
-config_filename = os.getenv("FLASK_CONFIGFILE", "../rp-chat_files/config.live.json")
+config_filename = os.getenv("FLASK_CONFIGFILE", "config.live.json")
 
 with codecs.open(config_filename, "r", "utf-8") as config_file:
     config = json.loads(config_file.read())
@@ -38,8 +38,7 @@ configure_nav(app)
 
 # db.create_all()
 
-from views.auth import *
-from views.frontend import *
+from chat.views.frontend import *
 
 if __name__ == "__main__":
     import ssl

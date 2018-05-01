@@ -1,14 +1,10 @@
 import json
 
-from web import app, config, login_manager
+from chat.web import app, config, login_manager
 
-import persistence.service
-
-from flask import url_for, redirect, render_template, session, jsonify, request, g
+from flask import url_for, redirect, session, jsonify, request
 
 from flask_login import login_required, login_user, current_user, logout_user
-
-import requests
 
 import google.oauth2.credentials
 import google.oauth2.id_token
@@ -32,7 +28,7 @@ def credentials_to_dict(credentials):
 
 @login_manager.user_loader
 def load_user(user_id):
-    from persistence.models import User
+    from chat.persistence.models import User
     return User.query.filter_by(id=user_id).first()
 
 
@@ -86,7 +82,7 @@ def oauth2callback():
     # session['credentials'] = credentials_to_dict(credentials)
     id_token = google.oauth2.id_token.verify_oauth2_token(credentials.id_token, google.auth.transport.requests.Request(), credentials.client_id)
 
-    login_user(persistence.service.which_user_just_logged_in(credentials_to_dict(credentials), id_token), remember=True)
+    login_user(chat.persistence.service.which_user_just_logged_in(credentials_to_dict(credentials), id_token), remember=True)
 
     return redirect(url_for('home'))
 
@@ -135,7 +131,7 @@ def refresh_token():
 
     old_id_token = json.loads(current_user.oauth_credential.id_token_json)
     new_id_token = google.oauth2.id_token.verify_oauth2_token(credentials.id_token, google.auth.transport.requests.Request(), credentials.client_id)
-    persistence.service.refresh_credential(current_user.oauth_credential.sub, credentials_to_dict(credentials), id_token_json=new_id_token)
+    chat.persistence.service.refresh_credential(current_user.oauth_credential.sub, credentials_to_dict(credentials), id_token_json=new_id_token)
 
     return jsonify(id_token=old_id_token, new_id_token=new_id_token)
 
@@ -149,6 +145,6 @@ def get_emails():
     credentials.refresh(google.auth.transport.requests.Request())
 
     new_id_token = google.oauth2.id_token.verify_oauth2_token(credentials.id_token, google.auth.transport.requests.Request(), credentials.client_id)
-    persistence.service.refresh_credential(current_user.oauth_credential.sub, credentials_to_dict(credentials), id_token_json=new_id_token)
+    chat.persistence.service.refresh_credential(current_user.oauth_credential.sub, credentials_to_dict(credentials), id_token_json=new_id_token)
 
     return jsonify(new_id_token['email'])

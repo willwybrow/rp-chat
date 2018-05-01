@@ -1,12 +1,11 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from sqlalchemy.orm import joinedload
 
-import forms
+from chat import forms
 
-from web import app
+from chat.web import app
 
-from persistence import models
+from chat.persistence import models
 
 
 @app.route('/')
@@ -48,7 +47,8 @@ def dm_campaigns():
 @app.route('/campaigns/', methods=['GET', 'POST'])
 def campaigns():
     if request.method == 'GET':
-        campaigns = models.db.session.query(models.Campaign).join(models.campaign_characters).join(models.Character).filter(models.Character.user_id == current_user.id).paginate(page=int(request.args.get('page', 1)))
+        campaigns = models.db.session.query(models.Campaign).join(models.campaign_characters).join(models.Character).filter(
+            models.Character.user_id == current_user.id).paginate(page=int(request.args.get('page', 1)))
         return render_template("campaigns.html", campaigns=campaigns)
 
 
