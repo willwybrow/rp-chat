@@ -1,11 +1,11 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
-from chat import forms
+import forms
 
-from chat.web import app
+from web import app
 
-from chat.persistence import models
+from persistence import models
 
 
 @app.route('/')
