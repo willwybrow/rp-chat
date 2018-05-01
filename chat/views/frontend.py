@@ -26,6 +26,8 @@ def my_profile():
             user_to_update.name = update_form.name.data
             models.db.session.commit()
             return redirect(url_for('my_profile'))
+        else:
+            return render_template("profile.html", update_form=update_form)
 
 
 @login_required
@@ -41,6 +43,8 @@ def dm_campaigns():
             models.db.session.add(new_campaign)
             models.db.session.commit()
             return redirect(url_for('campaign', campaign_id=new_campaign.id))
+        else:
+            return render_template("campaigns.html", campaigns=my_campaigns, new_form=new_form)
 
 
 @login_required
@@ -55,7 +59,7 @@ def campaigns():
 @login_required
 @app.route('/campaigns/<campaign_id>')
 def campaign(campaign_id):
-    campaign = models.Campaign.query.filter_by(id=campaign_id, user_id=current_user.id).first_or_404()
+    campaign = models.Campaign.query.filter_by(id=campaign_id).first_or_404()
     return render_template("campaign.html", campaign=campaign)
 
 
@@ -73,6 +77,8 @@ def characters():
             models.db.session.add(new_character)
             models.db.session.commit()
             return redirect(url_for('character', character_id=new_character.id))
+        else:
+            return render_template("characters.html", characters=characters, new_form=new_form)
 
 
 @login_required
