@@ -79,6 +79,7 @@ class Character(db.Model):
     can_talk = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=True)
     campaigns = db.relationship('Campaign', secondary=campaign_characters, back_populates='characters')
+    played_by = db.relationship('User', backref='characters', uselist=False)
     
     
 class Campaign(db.Model):
