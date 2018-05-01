@@ -102,3 +102,7 @@ ENV/
 
 # PyCharm shit
 .idea/
+
+# secret files
+_secrets/
+_data/

@@ -7,5 +7,21 @@
     <h1>{{ campaign.name }}</h1>
     <div class="jumbotron">{{ campaign.description }}</div>
     <h2>Characters</h2>
+    <ul class="list-group">
+        {% for character in campaign.characters %}
+        <li class="list-group-item">{{ character.name }}</li>
+        {% endfor %}
+    </ul>
+    {% if current_user.id == campaign.run_by.id %}
+    <h2>Invitations</h2>
+    <form action="{{ url_for('invitations', campaign_id=campaign.id) }}" method="post">
+    <div class="list-group">
+        {% for invitation in campaign.invitations %}
+        <a class="list-group-item" href="{{ url_for('invitation', invitation_id=invitation.id, _external=True) }}">{{ url_for('invitation', invitation_id=invitation.id, _external=True) }}</a>
+        {% endfor %}
+        <button class="list-group-item list-group-item-action list-group-item-primary" type="submit">Create</button>
+    </div>
+    </form>
+    {% endif %}
 
 {% endblock %}

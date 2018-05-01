@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block innercontent %}
+    <h1>User Profile</h1>
+    {% if update_form %}
+    <h2>Update details</h2>
+    {{ wtf.quick_form(update_form) }}
+    {% endif %}
+
+{% endblock %}

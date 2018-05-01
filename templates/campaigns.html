@@ -7,9 +7,7 @@
     <h1>My Campaigns</h1>
     {% if new_form %}
     <h2>Add new</h2>
-    <form method="POST">
-        {{ wtf.quick_form(new_form) }}
-    </form>
+    {{ wtf.quick_form(new_form) }}
     {% endif %}
     <h2>Campaigns</h2>
     <table class="table">

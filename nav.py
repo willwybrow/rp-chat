@@ -16,6 +16,7 @@ def login_aware_navbar():
             View('Campaigns', 'campaigns'),
             View('Characters', 'characters'),
             Subgroup('DM', View('Campaigns', 'dm_campaigns'), View('NPCs', 'dm_characters')),
+            View('Profile', 'my_profile'),
             View('Logout', 'logout')])
     else:
         basic_navbar.extend([View('Login', 'login')])

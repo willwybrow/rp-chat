@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% block title %}Characters{% endblock %}
+
+{% block innercontent %}
+    <h1>{{ character.name }}</h1>
+    <div class="jumbotron">{{ character.bio }}</div>
+
+{% endblock %}

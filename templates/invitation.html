@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% block title %}Invitation{% endblock %}
+
+{% block innercontent %}
+    <h1>{{ invitation.campaign.name }}</h1>
+    <div class="jumbotron">{{ invitation.campaign.description }}</div>
+    <h2>Select a character to join</h2>
+    <div class="list-group">
+        {% for character in characters.items %}
+        <form action="{{ url_for('invitation_fulfilment', character_id=character.id, invitation_id=invitation.id) }}" method="post">
+            <button class="list-group-item list-group-item-action list-group-item-primary" type="submit">{{ character.name }}</button>
+        </form>
+        {% endfor %}
+    </div>
+    {{render_pagination(characters)}}
+{% endblock %}

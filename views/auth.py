@@ -121,7 +121,7 @@ def logout():
 
 @login_required
 @app.route('/refresh')
-def test_api_request():
+def refresh_token():
     # Load credentials from the session.
 
     credentials = google.oauth2.credentials.Credentials(
@@ -138,3 +138,17 @@ def test_api_request():
     persistence.service.refresh_credential(current_user.oauth_credential.sub, credentials_to_dict(credentials), id_token_json=new_id_token)
 
     return jsonify(id_token=old_id_token, new_id_token=new_id_token)
+
+
+@login_required
+@app.route('/email')
+def get_emails():
+    credentials = google.oauth2.credentials.Credentials(
+        **json.loads(current_user.oauth_credential.credential_json))
+
+    credentials.refresh(google.auth.transport.requests.Request())
+
+    new_id_token = google.oauth2.id_token.verify_oauth2_token(credentials.id_token, google.auth.transport.requests.Request(), credentials.client_id)
+    persistence.service.refresh_credential(current_user.oauth_credential.sub, credentials_to_dict(credentials), id_token_json=new_id_token)
+
+    return jsonify(new_id_token['email'])

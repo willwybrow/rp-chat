@@ -7,10 +7,26 @@
     <h1>My Characters</h1>
     {% if new_form %}
     <h2>Add new</h2>
-    <form method="POST">
-        {{ wtf.quick_form(new_form) }}
-    </form>
+    {{ wtf.quick_form(new_form) }}
     {% endif %}
     <h2>Characters</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Character</th>
+          <th scope="col">In Campaign(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for character in characters.items %}
+        <tr>
+          <th scope="row"><a href="{{ url_for('character', character_id=character.id) }}">{{ character.name }}</a></th>
+          <td>
+              {% for campaign in character.campaigns %}{{ campaign.name }}{% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     {{render_pagination(characters)}}
 {% endblock %}
