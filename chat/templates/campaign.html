@@ -14,14 +14,30 @@
     </ul>
     {% if current_user.id == campaign.run_by.id %}
     <h2>Invitations</h2>
+    {% for invitation in campaign.invitations %}
+    <div class="input-group">
+        <input type="text" class="form-control" value="{{ url_for('invitation', invitation_id=invitation.id, _external=True) }}" readonly="readonly" />
+        <span class="input-group-btn">
+            <button class="btn btn-default copy-input" type="button"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy</button>
+        </span>
+    </div>
+    {% endfor %}
     <form action="{{ url_for('invitations', campaign_id=campaign.id) }}" method="post">
     <div class="list-group">
-        {% for invitation in campaign.invitations %}
-        <a class="list-group-item" href="{{ url_for('invitation', invitation_id=invitation.id, _external=True) }}">{{ url_for('invitation', invitation_id=invitation.id, _external=True) }}</a>
-        {% endfor %}
         <button class="list-group-item list-group-item-action list-group-item-primary" type="submit">Create</button>
     </div>
     </form>
     {% endif %}
+{% endblock %}
+{% block scripts %}
+{{ super() }}
 
+    <script type="text/javascript">
+        $(document).on('click', 'button.copy-input', function(e) {
+            var target = $(e.target).closest('.input-group').children('input').get(0);
+            target.focus();
+            target.setSelectionRange(0, target.value.length);
+            succeed = document.execCommand("copy");
+        });
+    </script>
 {% endblock %}
