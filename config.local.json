@@ -9,7 +9,7 @@
     "testing_ssl_key": "_secrets/local_testing_cert.key"
   },
   "redis": {
-    "host": "172.27.198.136",
+    "host": "172.27.198.132",
     "port": 6379
   },
   "flask": {

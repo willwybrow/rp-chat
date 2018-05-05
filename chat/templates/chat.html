@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% block title %}Chat{% endblock %}
+
+{% block innercontent %}
+    {{render_pagination(messages)}}
+    <div class="list-group">
+    {% for message in messages.items|reverse %}
+        <a href="#" class="list-group-item {% if loop.last %}active{% endif %}" data-sender-id="{{message.sender.id}}">
+            {% if message.message_type_id == 0 %}
+            <p><em>{{ message.sender.name or "" }} {{ message.content }}</em></p>
+            {% else %}
+            <h5 class="list-group-item-heading" >{{ message.sender.name or "The DM" }}</h5>
+            <p class="list-group-item-text">{{ message.content }}</p>
+            {% endif %}
+        </a>
+    {% endfor %}
+    </div>
+    <div>
+        {{ wtf.quick_form(new_message_form) }}
+    </div>
+    {{render_pagination(messages)}}
+
+{% endblock %}
