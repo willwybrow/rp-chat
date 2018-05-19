@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional
 
 
 class NewCampaignForm(FlaskForm):
@@ -21,6 +21,7 @@ class UpdateProfileForm(FlaskForm):
 
 
 class NewMessageForm(FlaskForm):
-    message_type = SelectField('Message Type', choices=[('1', 'speech'), ('0', 'action')])
+    # message_type = SelectField('Message Type', choices=[('1', 'speech'), ('0', 'action')])
     content = StringField('Message')
-    submit = SubmitField('Send')
+    do = SubmitField('Do', validators=[Optional()])
+    say = SubmitField('Say', validators=[Optional()])

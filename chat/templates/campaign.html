@@ -7,11 +7,16 @@
     <h1>{{ campaign.name }}</h1>
     <div class="jumbotron">{{ campaign.description }}</div>
     <h2>Characters</h2>
-    <ul class="list-group">
+    <div class="">
         {% for character in campaign.characters %}
-        <li class="list-group-item">{{ character.name }} &ndash; {{ character.played_by.name }}</li>
+        <div class="input-group ">
+          <input type="text" class="form-control" readonly="readonly" aria-readonly="true" value="{{ character.name }} &ndash; {{ character.played_by.name }}">
+          <div class="input-group-btn">
+            <a class="btn btn-primary" href="{{ url_for('campaign_character_chat', campaign_id=campaign.id, character_id=character.id) }}">Chat as</a>
+          </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
     {% if current_user.id == campaign.run_by.id %}
     <h2>Invitations</h2>
     {% for invitation in campaign.invitations %}

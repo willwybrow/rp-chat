@@ -18,7 +18,15 @@
     {% endfor %}
     </div>
     <div>
-        {{ wtf.quick_form(new_message_form) }}
+        <form method="post">
+            {{ new_message_form.csrf_token }}
+            <div class="input-group">
+                {{ new_message_form.content(class_="form-control") }}
+                <div class="input-group-btn">
+                {{ new_message_form.do(class_="btn btn-secondary") }}{{ new_message_form.say(class_="btn btn-primary") }}
+                </div>
+            </div>
+        </form>
     </div>
     {{render_pagination(messages)}}
 

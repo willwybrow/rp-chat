@@ -91,9 +91,10 @@ def campaign_character_chat(campaign_id, character_id):
     chat_recipient = models.Recipient.query.filter_by(id=campaign.id).first_or_404()
     if request.method == 'POST':
         if new_message_form.validate_on_submit():
-            new_message = models.Message(message_type_id=(models.MessageTypes.action if int(new_message_form.message_type.data) == models.MessageTypes.action else models.MessageTypes.speech), content=new_message_form.content.data, sender_id=character.id, recipient_id=chat_recipient.id, timestamp=datetime.datetime.utcnow())
+            new_message = models.Message(message_type_id=(models.MessageTypes.action if new_message_form.do.data else models.MessageTypes.speech), content=new_message_form.content.data, sender_id=character.id, recipient_id=chat_recipient.id, timestamp=datetime.datetime.utcnow())
             models.db.session.add(new_message)
             models.db.session.commit()
+            new_message_form = forms.NewMessageForm()
     chat_read_up_to = models.ChatReadUpTo.query.filter_by(user_id=current_user.id, recipient_id=chat_recipient.id).first()
     read_from = datetime.datetime.fromtimestamp(0)
     if chat_read_up_to is not None and chat_read_up_to.timestamp is not None:
