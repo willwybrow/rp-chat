@@ -1,6 +1,6 @@
 import datetime
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, Response
 from flask_login import login_required, current_user
 
 import forms
@@ -11,6 +11,16 @@ from web import app
 @app.route('/')
 def home():
     return render_template("index.html")
+
+
+@app.route('/version')
+def version():
+    import git
+    import json
+    repo = git.Repo(search_parent_directories=True)
+    sha = repo.head.object.hexsha
+    version_dict = {'version': sha}
+    return app.response_class(response=json.dumps(version_dict), status=200, mimetype="application/json")
 
 
 @login_required
