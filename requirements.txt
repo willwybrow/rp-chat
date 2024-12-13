@@ -10,7 +10,7 @@ flask-nav==0.6
 Flask-Session==0.3.1
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
-gitpython==3.1.37
+gitpython==3.1.41
 google-api-python-client==1.6.4
 google-auth==1.2.1
 google-auth-httplib2==0.0.3
