@@ -1,6 +1,6 @@
 from flask_login import current_user
-from flask_nav import Nav
-from flask_nav.elements import Navbar, View, Subgroup
+from flask_nav3 import Nav
+from flask_nav3.elements import Navbar, View, Subgroup
 from flask import current_app
 
 def navbar():
